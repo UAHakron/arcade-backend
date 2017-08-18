@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use('/api', require('./routes/api'));
 
 //listen for requests
-app.listen(process.env.port || 4000, function()
+app.listen(3308, function()
 {
 	console.log("Now listening for requests: ");
 }); 
