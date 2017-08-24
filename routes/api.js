@@ -9,7 +9,7 @@ var url = "mongodb://localhost:27017/mydb";
 router.get('/nfc', function(req, res)
 {
 	console.log('Get request received');
-	res.send([{"name":"Kyle","bits":"9999","rank":"1"},{"name":"Cam","bits":"888","rank":"2"},{"name":"Rodney","bits":"77","rank":"3"},{"name":"Larry","bits":"1","rank":"4"}]);
+	res.send([{"name":"Kyle","bits":"9999","rank":"1"},{"name":"Cam","bits":"888","rank":"2"},{"name":"Rodney","bits":"77","rank":"3"},{"name":"Larry","bits":"1","rank":"4"},{"name":"memerson","bits":"1","rank":"5"},{"name":"Larry","bits":"1","rank":"6"},{"name":"Steve","bits":"1","rank":"7"}]);
 });
 
 //registration
