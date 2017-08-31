@@ -18,7 +18,7 @@ router.get('/users', function(req, res) {
 router.get('/users/bits', function(req, res) {
     console.log('GET /users/bits');
 
-    User.find().sort([['bits','descending']]).then(function(err, users){
+    User.find().sort([['bits','descending']]).then(function(users, err){
         if (err) { 
             res.sendStatus(500);
             return console.error(err);
@@ -29,7 +29,7 @@ router.get('/users/bits', function(req, res) {
 
 router.get('/users/:nfc', function(req, res) {
     console.log('GET /users/:nfc');
-    User.findOne({ 'nfc': req.params.nfc }, function(err, user) {
+    User.findOne({ 'nfc': req.params.nfc }, function(users, err) {
         if (err) {
             res.status(500).send(err);
             return;
@@ -53,7 +53,7 @@ router.post('/users', function(req, res) {
 
 router.put('/users', function(req, res) {
     console.log('PUT /users');
-    User.findOne({ 'nfc': req.body.nfc }, function(err, user) {
+    User.findOne({ 'nfc': req.body.nfc }, function(users, err) {
         if (err) {
             res.status(500).send(err);
             return;
@@ -76,7 +76,7 @@ router.put('/users', function(req, res) {
 
 router.put('/users/:nfc/bits', function(req, res) {
     console.log('PUT /users/:nfc/bits');
-    User.findOne({ 'nfc': req.params.nfc }, function(err, user) {
+    User.findOne({ 'nfc': req.params.nfc }, function(users, err) {
         if (err) {
             res.status(500).send(err);
             return;
