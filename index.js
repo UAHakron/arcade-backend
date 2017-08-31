@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 //connect to mongodb
-mongoose.connect('mongodb://localhost/arcade');
+mongoose.connect('mongodb://localhost/registeredUsers', { useMongoClient: true });﻿
 mongoose.Promise = global.Promise;
 
 

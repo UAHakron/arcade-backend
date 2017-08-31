@@ -94,7 +94,7 @@ router.put('/users/:nfc/bits', function(req, res) {
 router.get('/nfc', function(req, res)
 {
 	console.log('Get request received');
-	res.send([{"name":"Kyle","bits":"984"},{"name":"Cam","bits":"4"},{"name":"Rodney","bits":"984"},{"name":"Larry","bits":"98443"}]);
+	res.send([{"name":"Kyle","bits":"9999","rank":"1"},{"name":"Cam","bits":"888","rank":"2"},{"name":"Rodney","bits":"77","rank":"3"},{"name":"Larry","bits":"1","rank":"4"},{"name":"memerson","bits":"1","rank":"5"},{"name":"Larry","bits":"1","rank":"6"},{"name":"Steve","bits":"1","rank":"7"}]);
 });
 
 //registration
