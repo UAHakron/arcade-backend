@@ -18,7 +18,7 @@ router.get('/users', function(req, res) {
 router.get('/users/bits', function(req, res) {
     console.log('GET /users/bits');
 
-    User.find().sort([['bits','descending']]).select('name','bits').then(function(users, err){
+    User.find({}, 'name bits').sort([['bits','descending']]).then(function(users, err){
         if (err) { 
             res.sendStatus(500);
             return console.error(err);
