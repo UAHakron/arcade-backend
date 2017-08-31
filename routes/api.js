@@ -30,6 +30,8 @@ router.get('/users/bits', function(req, res) {
     console.log('GET /users/bits');
 
     User.find().sort('bits','descending').then(function(err, users){
+        console.log(err + '\nprinting users');
+        console.log(users);
         if (err) { 
             res.sendStatus(500);
             return console.error(err);
