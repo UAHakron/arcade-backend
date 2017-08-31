@@ -43,7 +43,7 @@ router.post('/users', function(req, res) {
     var user = new User(req.body);
     User.findOne({'nfc': req.params.nfc}, function(docs, err)
     {
-        if(docs.length)
+        if(docs)
         {
             res.status(400).send({
             'error': 'NFC already exists'
@@ -54,7 +54,7 @@ router.post('/users', function(req, res) {
 
     User.findOne({'email': req.params.email}, function(docs, err)
     {
-        if(docs.length)
+        if(docs)
         {
             res.status(400).send({
             'error': 'Email already exists'
@@ -63,7 +63,7 @@ router.post('/users', function(req, res) {
         }
     });
 
-    user.save(function(user, err) {
+    user.save(function(err, user) {
         if (err) {
             res.status(500).send(err);
             return;
