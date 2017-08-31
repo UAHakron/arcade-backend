@@ -29,7 +29,7 @@ router.get('/users/:nfc', function(req, res) {
 router.get('/users/bits', function(req, res) {
     console.log('GET /users/bits');
 
-    User.find().sort('-bits').select('name', 'bits').then(function(err, users){
+    User.find().sort('bits','descending').select('name', 'bits').then(function(err, users){
         if (err) { 
             res.sendStatus(500);
             return console.error(err);
