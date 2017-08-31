@@ -29,7 +29,7 @@ router.get('/users/bits', function(req, res) {
 
 router.get('/users/:nfc', function(req, res) {
     console.log('GET /users/:nfc');
-    User.findOne({ 'nfc': req.params.nfc }, function(users, err) {
+    User.findOne({ 'nfc': req.params.nfc }, function(user, err) {
         if (err) {
             res.status(500).send(err);
             return;
@@ -41,6 +41,28 @@ router.get('/users/:nfc', function(req, res) {
 router.post('/users', function(req, res) {
     console.log('POST /users');
     var user = new User(req.body);
+    User.findOne({'nfc': req.params.nfc}, function(err, docs)
+    {
+        if(docs.length)
+        {
+            res.status(400).send({
+            'error': 'NFC already exists'
+            });
+            return;
+        }
+    });
+
+    User.findOne({'email': req.params.email}, function(err, docs)
+    {
+        if(docs.length)
+        {
+            res.status(400).send({
+            'error': 'Email already exists'
+            });
+            return;
+        }
+    });
+
     user.save(function(err, user) {
         if (err) {
             res.status(500).send(err);
@@ -53,7 +75,7 @@ router.post('/users', function(req, res) {
 
 router.put('/users', function(req, res) {
     console.log('PUT /users');
-    User.findOne({ 'nfc': req.body.nfc }, function(users, err) {
+    User.findOne({ 'nfc': req.body.nfc }, function(user, err) {
         if (err) {
             res.status(500).send(err);
             return;
@@ -76,7 +98,7 @@ router.put('/users', function(req, res) {
 
 router.put('/users/:nfc/bits', function(req, res) {
     console.log('PUT /users/:nfc/bits');
-    User.findOne({ 'nfc': req.params.nfc }, function(users, err) {
+    User.findOne({ 'nfc': req.params.nfc }, function(user, err) {
         if (err) {
             res.status(500).send(err);
             return;
