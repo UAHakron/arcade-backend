@@ -18,7 +18,7 @@ router.get('/users', function(req, res) {
 router.get('/users/:nfc', function(req, res) {
     console.log('GET /users/:nfc');
     User.findOne({ 'nfc': req.params.nfc }, function(err, user) {
-        if (err.length > 0) {
+        if (err) {
             res.status(500).send(err);
             return;
         }
@@ -30,7 +30,7 @@ router.get('/users/bits', function(req, res) {
     console.log('GET /users/bits');
 
     User.find().then(function(err, users){
-        if (err.length > 0) { 
+        if (err) { 
             res.sendStatus(500);
             return console.error(err);
         }
@@ -48,8 +48,48 @@ router.post('/users', function(req, res) {
         }
         res.json(user);
     });
-    
 });
+
+
+router.put('/users', function(req, res) {
+    console.log('PUT /users');
+    User.findOne({ 'nfc': req.body.nfc }, function(err, user) {
+        if (err) {
+            res.status(500).send(err);
+            return;
+        }
+        user.name = req.body.name || user.name;
+        user.nfc = req.body.nfc || user.nfc;
+        user.email = req.body.email || user.email;
+        user.bits = req.body.bits || user.bits;
+
+        user.save(function(err, user) {
+            if (err) {
+                res.status(500).send(err);
+                return;
+            }
+            res.json(user);
+        })
+
+    });
+});
+
+router.put('/users/:nfc/bits', function(req, res) {
+    console.log('PUT /users/:nfc/bits');
+    User.findOne({ 'nfc': req.params.nfc }, function(err, user) {
+        if (err) {
+            res.status(500).send(err);
+            return;
+        }
+        user.bits += req.body.bits || 0;
+        user.save(function(err, user) {
+            res.json(user);
+        });
+    });
+});
+
+
+
 // get a list of IDs from db
 router.get('/nfc', function(req, res)
 {
