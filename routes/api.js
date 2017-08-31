@@ -6,11 +6,11 @@ const User = require('../models/User')
 router.get('/users', function(req, res) {
     console.log('GET /users');
     User.find().then(function(err, users){
-        if (err.length > 0) { 
-            console.log(err);
-            res.status(500).send(err);
-            return;
-        }
+        // if (err.length > 0) { 
+        //     console.log(err);
+        //     res.status(500).send(err);
+        //     return;
+        // }
     res.json(users);
     });
 });
