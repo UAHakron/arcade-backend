@@ -1,10 +1,55 @@
 const express = require('express');
 const router = express.Router();
-const RegUser = require('../models/regUser')
+const User = require('../models/User')
 
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/mydb";
 
+router.get('/users', function(req, res) {
+    console.log('GET /users');
+    User.find().then(function(err, users){
+        if (err.length > 0) { 
+            console.log(err);
+            res.status(500).send(err);
+            return;
+        }
+    res.json(users);
+    });
+});
+
+router.get('/users/:nfc', function(req, res) {
+    console.log('GET /users/:nfc');
+    User.findOne({ 'nfc': req.params.nfc }, function(err, user) {
+        if (err.length > 0) {
+            res.status(500).send(err);
+            return;
+        }
+        res.json(user);
+    });
+});
+
+router.get('/users/bits', function(req, res) {
+    console.log('GET /users/bits');
+
+    User.find().then(function(err, users){
+        if (err.length > 0) { 
+            res.sendStatus(500);
+            return console.error(err);
+        }
+    });
+});
+
+
+router.post('/users', function(req, res) {
+    console.log('POST /users');
+    var user = new User(req.body);
+    user.save(function(err, user) {
+        if (err) {
+            res.status(500).send(err);
+            return;
+        }
+        res.json(user);
+    });
+    
+});
 // get a list of IDs from db
 router.get('/nfc', function(req, res)
 {

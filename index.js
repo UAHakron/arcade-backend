@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 //connect to mongodb
-mongoose.connect('mongoDb://localhost/registeredUsers', { useMongoClient: true });﻿
+mongoose.connect('mongodb://admin:akron2017@ds115124.mlab.com:15124/arcade');
 mongoose.Promise = global.Promise;
 
 
@@ -18,5 +18,5 @@ app.use('/api', require('./routes/api'));
 //listen for requests
 app.listen(3308, function()
 {
-	console.log("Now listening for requests: ");
+	console.log("Arcade API now running");
 }); 
