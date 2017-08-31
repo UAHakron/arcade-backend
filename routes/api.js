@@ -15,6 +15,18 @@ router.get('/users', function(req, res) {
     });
 });
 
+router.get('/users/bits', function(req, res) {
+    console.log('GET /users/bits');
+
+    User.find().sort('bits','descending').then(function(err, users){
+        if (err) { 
+            res.sendStatus(500);
+            return console.error(err);
+        }
+        res.json(users);
+    });
+});
+
 router.get('/users/:nfc', function(req, res) {
     console.log('GET /users/:nfc');
     User.findOne({ 'nfc': req.params.nfc }, function(err, user) {
@@ -25,21 +37,6 @@ router.get('/users/:nfc', function(req, res) {
         res.json(user);
     });
 });
-
-router.get('/users/bits', function(req, res) {
-    console.log('GET /users/bits');
-
-    User.find().sort('bits','descending').then(function(err, users){
-        console.log(err + '\nprinting users');
-        console.log(users);
-        if (err) { 
-            res.sendStatus(500);
-            return console.error(err);
-        }
-        res.json(users);
-    });
-});
-
 
 router.post('/users', function(req, res) {
     console.log('POST /users');
