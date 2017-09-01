@@ -56,7 +56,7 @@ router.post('/users', function(req, res) {
         }
     });
 
-    User.findOne({ 'email': req.body.email }, function(docs, err)
+    User.findOne({ 'email': req.body.email }, function(err, docs)
     {
         console.log(docs);
         if(docs)
