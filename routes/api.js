@@ -41,7 +41,7 @@ router.get('/users/:nfc', function(req, res) {
 router.post('/users', function(req, res) {
     console.log('POST /users');
     var user = new User(req.body);
-    User.findOne({'nfc': req.params.nfc}, function(docs, err)
+    User.findOne({'nfc': req.body.nfc}, function(docs, err)
     {
         if(docs)
         {
@@ -52,7 +52,7 @@ router.post('/users', function(req, res) {
         }
     });
 
-    User.findOne({'email': req.params.email}, function(docs, err)
+    User.findOne({'email': req.body.email}, function(docs, err)
     {
         if(docs)
         {
