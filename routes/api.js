@@ -55,7 +55,7 @@ router.post('/users', function(req, res) {
 
     console.log('POST /users');
     var user = new User(req.body);
-    
+
     user.save(function(err, user) {
         if (err) {
             res.status(500).send(err);
@@ -97,7 +97,7 @@ router.put('/users/:nfc/bits', function(req, res) {
             res.status(500).send(err);
             return;
         }
-        user.bits += req.body.bits || 0;
+        user.bits += req.query.bits || 0;
         user.save(function(err, user) {
             res.json(user);
         });
