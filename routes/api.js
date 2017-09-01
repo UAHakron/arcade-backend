@@ -97,7 +97,7 @@ router.put('/users/:nfc/bits', function(req, res) {
             res.status(500).send(err);
             return;
         }
-        user.bits += req.query.bits || 0;
+        user.bits += (req.query.bits - 0) || 0;
         console.log(req.query.bits);
         user.save(function(user, err) {
             res.json(user);
