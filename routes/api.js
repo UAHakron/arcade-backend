@@ -74,6 +74,7 @@ router.put('/users', function(req, res) {
             res.status(500).send(err);
             return;
         }
+
         user.name = req.body.name || user.name;
         user.nfc = req.body.nfc || user.nfc;
         user.email = req.body.email || user.email;
@@ -95,6 +96,11 @@ router.put('/users/:nfc/bits', function(req, res) {
     User.findOne({ 'nfc': req.params.nfc }, function(err, user) {
         if (err) {
             res.status(500).send(err);
+            return;
+        }
+        if(!user)
+        {
+            res.status(404).send('not found');
             return;
         }
         user.bits += (req.query.bits - 0) || 0;
