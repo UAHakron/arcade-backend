@@ -3,6 +3,19 @@ const router = express.Router();
 const User = require('../models/User')
 
 
+function checkEmailUnique(request)
+{
+    
+
+
+}
+
+function checkNFCUnique(documents)
+{
+    if (docs) return false;
+}
+
+
 router.get('/users', function(req, res) {
     console.log('GET /users');
     User.find().then(function(users, err){
@@ -39,41 +52,10 @@ router.get('/users/:nfc', function(req, res) {
 });
 
 router.post('/users', function(req, res) {
-    var hasError = false;
 
     console.log('POST /users');
-    console.log(req.body.nfc);
-    console.log(req.body.email);
-
     var user = new User(req.body);
-    User.findOne({ 'nfc': req.body.nfc }, function(err, docs)
-    {
-        console.log(docs);
-        if(docs)
-        {
-            res.status(400).send({
-            'error': 'NFC already exists'
-            });
-            global.hasError = true;
-        }
-    });
-
-    if(hasError) return;
-
-    User.findOne({ 'email': req.body.email }, function(err, docs)
-    {
-        console.log(docs);
-        if(docs)
-        {
-            res.status(400).send({
-            'error': 'Email already exists'
-            });
-            global.hasError = true;
-        }
-    });
     
-    if(hasError) return;
-
     user.save(function(err, user) {
         if (err) {
             res.status(500).send(err);
@@ -81,6 +63,7 @@ router.post('/users', function(req, res) {
         }
         res.json(user);
     });
+
 });
 
 
@@ -120,5 +103,6 @@ router.put('/users/:nfc/bits', function(req, res) {
         });
     });
 });
+
 
 module.exports = router;
