@@ -92,7 +92,7 @@ router.put('/users', function(req, res) {
 
 router.put('/users/:nfc/bits', function(req, res) {
     console.log('PUT /users/:nfc/bits');
-    User.findOne({ 'nfc': req.params.nfc }, function(user, err) {
+    User.findOne({ 'nfc': req.params.nfc }, function(err, user) {
         if (err) {
             res.status(500).send(err);
             return;
