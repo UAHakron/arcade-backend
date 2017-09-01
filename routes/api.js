@@ -2,20 +2,6 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User')
 
-
-function checkEmailUnique(request)
-{
-    
-
-
-}
-
-function checkNFCUnique(documents)
-{
-    if (docs) return false;
-}
-
-
 router.get('/users', function(req, res) {
     console.log('GET /users');
     User.find().then(function(users, err){
