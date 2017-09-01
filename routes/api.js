@@ -39,6 +39,8 @@ router.get('/users/:nfc', function(req, res) {
 });
 
 router.post('/users', function(req, res) {
+    var hasError = false;
+
     console.log('POST /users');
     console.log(req.body.nfc);
     console.log(req.body.email);
@@ -52,11 +54,13 @@ router.post('/users', function(req, res) {
             res.status(400).send({
             'error': 'NFC already exists'
             });
-            return;
+            hasError = true;
         }
     });
 
-    User.findOne({ 'email': req.body.email }, function(err, docs)
+    if(hasError) return;
+
+    User.findOne({ 'email': req.body.email }, function(docs, err)
     {
         console.log(docs);
         if(docs)
@@ -64,9 +68,11 @@ router.post('/users', function(req, res) {
             res.status(400).send({
             'error': 'Email already exists'
             });
-            return;
+            hasError = true;
         }
     });
+    
+    if(hasError) return;
 
     user.save(function(err, user) {
         if (err) {
