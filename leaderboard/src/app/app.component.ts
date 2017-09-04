@@ -44,6 +44,7 @@ export class AppComponent {
      console.log(this.people);
 
       for (let index of this.people) {
+        console.log(index);
         console.log("updating " + this.people[index].name + " rank to: " + (index + 1));
         this.people[index].rank = (index + 1);
 
