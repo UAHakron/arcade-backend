@@ -43,7 +43,7 @@ export class AppComponent {
       this.people = JSON.parse(result);
      console.log(this.people);
 
-      for (let index of this.people) {
+      for (let index in this.people) {
         console.log(index);
         console.log("updating " + this.people[index].name + " rank to: " + (index + 1));
         this.people[index].rank = (index + 1);
