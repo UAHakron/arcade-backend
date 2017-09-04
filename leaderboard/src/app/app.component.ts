@@ -41,6 +41,7 @@ export class AppComponent {
       console.log(data);
       var result = JSON.stringify(data);
       this.people = JSON.parse(result);
+     console.log(this.people);
 
       for (let index of this.people) {
         console.log("updating " + this.people[index].name + " rank to: " + (index + 1));
