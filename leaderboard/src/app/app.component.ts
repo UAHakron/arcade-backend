@@ -41,15 +41,11 @@ export class AppComponent {
       console.log(data);
       var result = JSON.stringify(data);
       this.people = JSON.parse(result);
-     console.log(this.people);
 
       for (let index in this.people) {
-        console.log(index);
-        console.log("updating " + this.people[index].name + " rank to: " + (index + 1));
-        this.people[index].rank = (index + 1);
+        this.people[index].rank = (index*1 + 1);
 
       }
-    console.log(this.people);
     });
   };
   nameLookup(content){
