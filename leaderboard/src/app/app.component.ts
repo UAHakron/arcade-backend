@@ -43,6 +43,7 @@ export class AppComponent {
       this.people = JSON.parse(result);
 
       for (let index in this.people) {
+        console.log(index.constructor.name);
         this.people[index].rank = (index*1 + 1);
 
       }
