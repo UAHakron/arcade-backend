@@ -41,6 +41,11 @@ export class AppComponent {
       console.log(data);
       var result = JSON.stringify(data);
       this.people = JSON.parse(result);
+
+      for (let index of this.people) {
+        this.people[index].rank = (index + 1);
+
+      }
     });
   };
   nameLookup(content){
