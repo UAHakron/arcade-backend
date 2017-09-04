@@ -79,7 +79,7 @@ router.put('/users', function(req, res) {
 
 router.delete('/users/:nfc', function(req, res) {
     console.log('DELETE /users/:nfc');
-    User.remove({ 'nfc': req.params.nfc }, functoin(err) {
+    User.remove({ 'nfc': req.params.nfc }, function(err) {
         if (err) {
             res.status(500).send(err);
             return;
