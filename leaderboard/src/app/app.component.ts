@@ -38,7 +38,7 @@ export class AppComponent {
   getStuff(){        
   this.http.get('http://hakron.io/arcade/api/users/bits').subscribe(data => {
     
-        console.log(data);
+      console.log(data);
       var result = JSON.stringify(data);
       this.people = JSON.parse(result);
     });
