@@ -77,6 +77,17 @@ router.put('/users', function(req, res) {
     });
 });
 
+router.delete('/users/:nfc', function(req, res) {
+    console.log('DELETE /users/:nfc');
+    User.remove({ 'nfc': req.params.nfc }, functoin(err) {
+        if (err) {
+            res.status(500).send(err);
+            return;
+        }
+        res.sendStatus(200);
+    });
+});
+
 router.put('/users/:nfc/bits', function(req, res) {
     console.log('PUT /users/:nfc/bits');
     User.findOne({ 'nfc': req.params.nfc }, function(err, user) {
