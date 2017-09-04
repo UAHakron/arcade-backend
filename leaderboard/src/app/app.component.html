@@ -1,0 +1,67 @@
+<div class="main">
+  <div style="text-align:center">
+    <h4>
+      Welcome to {{title}}!
+    </h4>
+    <img style="max-width: 500px" class="img-responsive" src="https://hakron.io/img/logo.svg">
+  </div>
+  <br/>
+
+  <div class="row justify-content-center" style="margin-bottom: 10px;">
+      <button type="button" class="btn btn-primary col-md-3" (click)="getStuff()">Update Leaderboard!</button>
+  </div>
+  <form class="row form-inline justify-content-center"  style="margin-bottom: -20px;"> 
+    <input [(ngModel)]="lookupName"  [ngModelOptions]="{standalone: true}" class="col-xs-4 col-sm-3 col-md-2 col-lg-2" placeholder="Enter your first name here" style="margin-right: 10px;">
+    <button type="button" class="lButton btn btn-primary col-xs-4 col-sm-3 col-md-2 col-lg-2"(click)="nameLookup(content)">Search Rank</button>
+  </form>
+
+  <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Search Results</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="table table-responsive">
+              <table class="table-bordered table-striped ">
+                  <tr>
+                    <td class="active col-lg-1 col-md-3 col-sm-3 col-xs-6">Rank</td>
+                    <th class="active col-lg-3 col-md-3 col-sm-3 col-xs-6">Name</th>
+                    <th class="active col-lg-3 col-md-3 col-sm-3 col-xs-6">Bits</th>
+                  </tr>
+                  <tr *ngFor="let person of found">
+                    <td class="col-lg-1 col-md-3 col-sm-3 col-xs-6">{{person.rank}}</td>
+                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-6">{{person.name}}</td>
+                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{person.bits}}</td>
+                  </tr> 
+              </table>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+      </div>
+    </ng-template>
+    
+  <br/>
+</div>
+
+  <div class="table table-responsive">
+    <table class="table-bordered table-striped ">
+        <tr>
+          <td class="col-lg-1 col-md-3 col-sm-3 col-xs-6">Rank</td>
+          <th class="col-lg-3 col-md-3 col-sm-3 col-xs-6">Name</th>
+          <th class="col-lg-3 col-md-3 col-sm-3 col-xs-6">Bits</th>
+        </tr>
+        <tr *ngFor="let person of people">
+          <td class="col-lg-1 col-md-3 col-sm-3 col-xs-6">{{person.rank}}</td>
+          <td class="col-lg-3 col-md-3 col-sm-3 col-xs-6">{{person.name}}</td>
+          <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{person.bits}}</td>
+        </tr> 
+    </table>
+  </div>
+
+
+
+
+  
