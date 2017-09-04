@@ -15,6 +15,9 @@ app.use(bodyParser.json());
 //initialize routes
 app.use('/api', require('./routes/api'));
 
+
+app.use('/', express.static(path.join(__dirname, 'leaderboard/dist')))
+
 //listen for requests
 app.listen(3308, function()
 {
