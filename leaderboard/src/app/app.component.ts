@@ -36,7 +36,7 @@ export class AppComponent {
   //everyone = {};
   lookupName = '';
   getStuff(){        
-  this.http.get('http://hakron.io/arcade/api/users/bits').subscribe(data => {
+  this.http.get('https://hakron.io/arcade/api/users/bits').subscribe(data => {
     
       console.log(data);
       var result = JSON.stringify(data);
