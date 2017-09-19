@@ -1,62 +1,60 @@
-<div class="main">
+<div class="main" style="padding-bottom: 5px;">
   <div style="text-align:center">
-    <h4>
-      Welcome to {{title}}!
-    </h4>
-    <img style="max-width: 500px" class="img-responsive" src="https://hakron.io/img/logo.svg">
+    <h2 class="animated slideInLeft">
+      Welcome to the
+    </h2>
+    <img style="max-width: 500px" class="img-responsive animated fadeIn" src="https://hakron.io/img/logo.svg">
+    <h2 class="animated slideInLeft">
+      Leaderboard!
+    </h2>
   </div>
   <br/>
 
-  <div class="row justify-content-center" style="margin-bottom: 10px;">
-      <button type="button" class="btn btn-primary col-md-3" (click)="getStuff()">Update Leaderboard!</button>
-  </div>
-  <form class="row form-inline justify-content-center"  style="margin-bottom: -20px;"> 
-    <input [(ngModel)]="lookupName"  [ngModelOptions]="{standalone: true}" class="col-xs-4 col-sm-3 col-md-2 col-lg-2" placeholder="Enter your first name here" style="margin-right: 10px;">
-    <button type="button" class="lButton btn btn-primary col-xs-4 col-sm-3 col-md-2 col-lg-2"(click)="nameLookup(content)">Search Rank</button>
+  <form class="form-inline justify-content-center"> 
+    <input [(ngModel)]="lookupName"  [ngModelOptions]="{standalone: true}" class="" placeholder="Full Name" style="margin-right: 10px;">
+    <button type="button" class="lButton btn btn-primary "(click)="nameLookup(content)">Search Rank</button>
   </form>
 
   <ng-template #content let-c="close" let-d="dismiss">
       <div class="modal-header">
         <h4 class="modal-title">Search Results</h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-          <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true" style="background-color: white">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body animated fadeIn">
           <div class="table table-responsive">
-              <table class="table-bordered table-striped ">
+              <table class="table-bordered table-striped" style="width: 100%">
                   <tr>
-                    <td class="active col-lg-1 col-md-3 col-sm-3 col-xs-6">Rank</td>
-                    <th class="active col-lg-3 col-md-3 col-sm-3 col-xs-6">Name</th>
-                    <th class="active col-lg-3 col-md-3 col-sm-3 col-xs-6">Bits</th>
+                    <th class="">Rank</th>
+                    <th class="">Name</th>
+                    <th class="">Bits</th>
                   </tr>
                   <tr *ngFor="let person of found">
-                    <td class="col-lg-1 col-md-3 col-sm-3 col-xs-6">{{person.rank}}</td>
-                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-6">{{person.name}}</td>
-                    <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{person.bits}}</td>
+                    <td class="">{{person.rank}}</td>
+                    <td class="">{{person.name}}</td>
+                    <td class="">{{person.bits}}</td>
                   </tr> 
               </table>
             </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+        <button type="button" class="lButton btn btn-primary" (click)="c('Close click')">Close</button>
       </div>
     </ng-template>
-    
-  <br/>
 </div>
 
   <div class="table table-responsive">
-    <table class="table-bordered table-striped ">
+    <table class="table-bordered table-striped" style="width: 100%">
         <tr>
-          <td class="col-lg-1 col-md-3 col-sm-3 col-xs-6">Rank</td>
-          <th class="col-lg-3 col-md-3 col-sm-3 col-xs-6">Name</th>
-          <th class="col-lg-3 col-md-3 col-sm-3 col-xs-6">Bits</th>
+          <th class="">Rank</th>
+          <th class="">Name</th>
+          <th class="">Bits</th>
         </tr>
-        <tr *ngFor="let person of people">
-          <td class="col-lg-1 col-md-3 col-sm-3 col-xs-6">{{person.rank}}</td>
-          <td class="col-lg-3 col-md-3 col-sm-3 col-xs-6">{{person.name}}</td>
-          <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{person.bits}}</td>
+        <tr *ngFor="let person of people" class="animated fadeIn">
+          <td class="">{{person.rank}}</td>
+          <td class="">{{person.name}}</td>
+          <td class="">{{person.bits}}</td>
         </tr> 
     </table>
   </div>

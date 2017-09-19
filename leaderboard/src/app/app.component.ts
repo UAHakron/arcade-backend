@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {Observable} from 'rxjs'; 
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,13 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  ngOnInit(){this.getStuff()}
+  ngOnInit()
+  {
+    this.getStuff();
+
+    var timer = Observable.interval(30000);
+    timer.subscribe(auto => this.getStuff());
+  }
   
   constructor(private http: HttpClient, private modalService: NgbModal){
   }
@@ -36,16 +43,18 @@ export class AppComponent {
   //everyone = {};
   lookupName = '';
   getStuff(){        
-  this.http.get('https://hakron.io/arcade/api/users/bits').subscribe(data => {
+    this.http.get('https://hakron.io/arcade/api/users/bits').subscribe(data => {
     
-      console.log(data);
+      //console.log('got stuff')
+      //TODO: Live update leaderboard and get rid of button!
+        console.log(data);
       var result = JSON.stringify(data);
       this.people = JSON.parse(result);
 
       for (let index in this.people) {
-        this.people[index].rank = (parseInt(index) + 1);
-
+      this.people[index].rank = (parseInt(index) + 1);
       }
+
     });
   };
   nameLookup(content){
@@ -60,7 +69,12 @@ export class AppComponent {
       for(let i = 0; i < this.people.length; i++)
         {
           //console.log(this.people[i].name.toUpperCase());
-          if(this.people[i].name === this.lookupName || this.people[i].name.toLowerCase() === this.lookupName || this.people[i].name[0].toUpperCase() + this.people[i].name.slice(1, this.people[i].name.length) === this.lookupName || this.people[i].name.toUpperCase() === this.lookupName)
+          if(this.people[i].name === this.lookupName || this.people[i].name.toLowerCase() === this.lookupName || this.people[i].name[0].toUpperCase() + this.people[i].name.slice(1, this.people[i].name.length) === this.lookupName 
+            || this.people[i].name.toUpperCase() === this.lookupName 
+            || this.people[i].name.split(" ").includes(this.lookupName)
+            || this.people[i].name.indexOf(this.lookupName) !== -1
+            || this.people[i].name.toLowerCase().indexOf(this.lookupName) !== -1 
+            || this.people[i].name[0].toUpperCase().indexOf(this.lookupName) !== -1) 
             {
             this.found.push(this.people[i]);      
             }
