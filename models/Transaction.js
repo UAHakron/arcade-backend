@@ -7,7 +7,6 @@ var TransactionSchema = new Schema({
 	nfc: {
 		type: String,
 		required: [true, "ID is required"],
-		unique: true
 	},
 
 	bits:{

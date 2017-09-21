@@ -10,9 +10,19 @@ var ReaderSchema = new Schema({
 		unique: true
 	},
 
-    locations: {
-        type: [String]
+    location: {
+        type: String
         required: [true, "A location is required"]
+    },
+
+    value: {
+        type: Number,
+        required: [true, "value is required"]
+    },
+    
+    cooldown: {
+        type: Number,
+        required: [true, "cooldown is required"]
     }
 
 },

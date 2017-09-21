@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User')
+const Transaction = require('../models/Transaction')
+const Reader = require('../models/Reader')
 
 router.get('/users', function(req, res) {
     console.log('GET /users');
