@@ -1,0 +1,142 @@
+<html>
+
+<head>
+  <title> Redeem Those Bits </title>
+
+  <style>
+    body {
+      background: #444 url("https://hakron.io/img/background.svg") center;
+      background-repeat: repeat;
+      background-size: 30%;
+    }
+
+    #content {
+      width: 320px;
+      margin-right: auto;
+      margin-left: auto;
+      background: #F7EDCD;
+      color: #4A3223;
+      box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
+      padding: 1em;
+      border-radius: .28571429rem;
+      border: 1px solid rgba(34,36,38,.15);
+    }
+
+    #logo {
+      max-width: 200px;
+      margin: .5rem auto 1rem;
+    }
+
+    .ui-divider {
+      margin: 1rem 0;
+      line-height: 1;
+      height: 0;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: rgba(0,0,0,.85);
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      font-size: 1rem;
+      border-top: 1px solid rgba(34,36,38,.15);
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    .field input {
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+          margin: 0;
+          outline: 0;
+          -webkit-appearance: none;
+          tap-highlight-color: rgba(255,255,255,0);
+          line-height: 1.2142em;
+          padding: .67861429em 1em;
+          font-size: 1em;
+          background: #fff;
+          border: 1px solid rgba(34,36,38,.15);
+          color: rgba(0,0,0,.87);
+          border-radius: .28571429rem;
+          box-shadow: 0 0 0 0 transparent inset;
+          -webkit-transition: color .1s ease,border-color .1s ease;
+          transition: color .1s ease,border-color .1s ease;
+    }
+
+    #submit {
+      margin-top: 20px;
+      color: #F7EDCD;
+      background: #DD5431;
+      -webkit-appearance: none;
+      tap-highlight-color: rgba(255,255,255,0);
+      line-height: 1.2142em;
+      padding: .67861429em 1em;
+      font-size: 1em;
+      border: 1px solid rgba(34,36,38,.15);
+      color: rgba(0,0,0,.87);
+      border-radius: .28571429rem;
+      box-shadow: 0 0 0 0 transparent inset;
+      -webkit-transition: color .1s ease,border-color .1s ease;
+      transition: color .1s ease,border-color .1s ease;
+    }
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+  $( document ).ready(function() {
+    $("button").click(function(e) {
+      e.preventDefault();
+
+      var email = $("#email").val();
+      var bits = $("#bits").val();
+      data = {};
+      data.bits = bits;
+
+      var url = "https://hakron.io/arcade/api/people/" + email + "/bits";
+
+      $.ajax({
+          url : url,
+          type : 'PUT',
+          data : JSON.stringify(data),
+          success: function(data){
+              var response = $.parseJSON(data);
+              message = response.name + " (" + response.email + ") has " + response.bits + " remaining.";
+              alert(message);
+          },
+          statusCode: {
+            404: function() {
+            alert('user not found');
+          },
+
+            405: function() {
+              alert('not enought bits');
+            }
+          }
+      });
+
+    });
+  });
+  </script>
+</head>
+
+<body>
+  <div id="content">
+    <div id="logo">
+        <img src="https://hakron.io/img/logo.svg">
+    </div>
+    <div class="ui-divider"></div>
+    <form>
+      <div class = "field">
+          <label> Email </label><br>
+          <input type = "email" id="email" placeholder="foo@bar.edu">
+      </div>
+      <div class = "field">
+          <label> Bits </label><br>
+          <input type = "text" id="bits" placeholder = "bit cost">
+      </div>
+      <button id = "submit"> Redeem </button>
+    </form>
+  </div>
+</body>
+
+</html>
