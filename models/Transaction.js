@@ -25,7 +25,7 @@ var TransactionSchema = new Schema({
     }
 
 },
-    timestamps: true);
+    {timestamps: true});
 
 TransactionSchema.plugin(uniqueValidator);
 const Transaction = mongoose.model('Transaction', TransactionSchema);

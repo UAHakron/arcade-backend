@@ -3,6 +3,8 @@ const router = express.Router();
 const User = require('../models/User')
 const Transaction = require('../models/Transaction')
 const Reader = require('../models/Reader')
+const Tag = require('../models/Tag')
+const Person = require('../models/Person')
 
 router.get('/users', function(req, res) {
     console.log('GET /users');
@@ -133,51 +135,46 @@ router.put('/users/:nfc/bits', function(req, res) {
 
 router.put('/bits', function(req, res) {
     console.log('POST bits');
-
+    console.log(req.query.num);
+    console.log(req.query.nfc);	
     Reader.findOne( {'num': req.query.num }, function(err, reader) {
+	if (err) {
+		res.status(500).send(err);
+		return;
+	}
+
+	if (!reader) {
+		res.status(404).send('not found');
+		return;
+	}
+	console.log(reader)
         Tag.findOne( {'nfc': req.query.nfc }, function(err, tag) {
-            Person.findOne( {'_id'; tag.person}, function(err, person) {
+	    if (err) {
+		res.status(500).send(err);
+		return;
+	    }
+	    if (!tag) {
+		res.status(404).send('not found');
+		return;
+	    }
+	    console.log(tag);
+            Person.findOne( {'_id': tag.person}, function(err, person) {
+		if (err) {
+		    res.status(500).send(err);
+		    return;
+		}
+		if (!person) {
+		    res.status(404).send('not found');
+		}
+		console.log(person);
                 person.bits += (reader.value - 0 ) || 0;
                 person.save(function(err, person) {
+			if (err) {
+				res.status(500).send(err);
+				return;
+			}
                     res.json(person);
                 });
-            });
-        });
-    });
-    
-    //Get user, update their total
-    User.findOne({ 'nfc': req.params.nfc }, function(err, user) {
-        if (err) {
-            res.status(500).send(err);
-            return;
-        }
-        if(!user)
-        {
-            res.status(404).send('not found');
-            return;
-        }
-
-    //Get reader based on num
-    
-        Reader.findOne( {'num': req.query.num}, function(err, reader) {
-            //Update user and save
-            user.bits += (reader.value - 0 ) || 0;
-            user.save()
-
-            //Create a transaction and save
-            var transaction = new Transaction({
-                nfc: req.params.nfc,
-                bits: (reader.value - 0),
-                reader: reader.num,
-                location: reader.location
-            });
-
-            transaction.save(function(err, transaction) {
-                if (err) {
-                    res.status(500).send(err);
-                    return;
-                }
-                res.json(transaction);
             });
         });
     });
@@ -247,6 +244,35 @@ router.get('/people/bits', function(req, res) {
     });
 });
 
+router.put('/people/:email/bits', function(req, res) {
+	console.log('PUT people email bits');
+	Person.find( { "email": req.params.email }, function(err, person) {
+	if (err) {
+		res.status(500).send(err);
+		return;
+	}
+	if (!person) {
+		res.status(404).send('not found');
+		return;
+	}
+	
+	if (req.body.bits < 0 && person.bits < Math.abs(req.body.bits)) {
+		res.status(405).send('Not enough bits');
+		return;
+	}
+
+        person.bits += (req.body.bits - 0 ) || 0;
+	
+	person.save(function(err, person) {
+	if (err) {
+		res.status(500).send(err);
+		return;
+	}
+	res.json(person);
+		});
+	});
+});
+
 router.get('/people/:email', function(req, res) {
     console.log('GET /people/:email');
 
@@ -278,6 +304,17 @@ router.post('/people', function(req, res) {
 
 });
 
+router.delete('/people/:email', function(req, res) {
+    console.log('DELETE /users/:email');
+   Person.remove({ 'email': req.params.email }, function(err) {
+        if (err) {
+            res.status(500).send(err);
+            return;
+        }
+        res.sendStatus(200);
+    });
+});
+
 router.post('/tags', function(req, res) {
 
     console.log('POST /tags');
@@ -302,18 +339,26 @@ router.get('/tags', function(req, res) {
 
 router.post('/tags/:nfc/person', function(req, res) {
     console.log('POST /tags/:nfc/person');
+    console.log(req.params.nfc);
     Tag.findOne({ 'nfc': req.params.nfc }, function(err, tag) {
+	console.log("TAG");
+	console.log(tag);
         if (err) {
+	    console.log(err);
             res.status(500).send(err);
             return;
         }
         if (!tag) {
+	    console.log("Tag not found");
             res.status(404).send('not found');
             return;
         }
+	console.log("Setting tag");
+	console.log(req.body.person);
         tag.person = req.body.person;
         tag.save(function(err, tag) {
             if (err) {
+		console.log(err);
                 res.status(500).send(err);
                 return;
             }

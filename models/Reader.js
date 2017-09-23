@@ -11,7 +11,7 @@ var ReaderSchema = new Schema({
 	},
 
     location: {
-        type: String
+        type: String,
         required: [true, "A location is required"]
     },
 
@@ -26,7 +26,7 @@ var ReaderSchema = new Schema({
     }
 
 },
-    timestamps: true);
+    {timestamps: true});
 
 ReaderSchema.plugin(uniqueValidator);
 const Reader = mongoose.model('Reader', ReaderSchema);

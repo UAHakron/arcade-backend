@@ -43,7 +43,7 @@ export class AppComponent {
   //everyone = {};
   lookupName = '';
   getStuff(){        
-    this.http.get('https://hakron.io/arcade/api/users/bits').subscribe(data => {
+    this.http.get('https://hakron.io/arcade/api/people/bits').subscribe(data => {
     
       //console.log('got stuff')
       //TODO: Live update leaderboard and get rid of button!
