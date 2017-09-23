@@ -92,6 +92,8 @@ router.delete('/users/:nfc', function(req, res) {
 
 router.put('/users/:nfc/bits', function(req, res) {
     console.log('PUT /users/:nfc/bits');
+    
+    //Get user, update their total
     User.findOne({ 'nfc': req.params.nfc }, function(err, user) {
         if (err) {
             res.status(500).send(err);
@@ -102,11 +104,75 @@ router.put('/users/:nfc/bits', function(req, res) {
             res.status(404).send('not found');
             return;
         }
-        user.bits += (req.query.bits - 0) || 0;
-        console.log(req.query.bits);
-        user.save(function(err, user) {
-            res.json(user);
+
+    //Get reader based on num
+    
+        Reader.findOne( {'num': req.query.num}, function(err, reader) {
+            //Update user and save
+            user.bits += (reader.value - 0 ) || 0;
+            user.save()
+
+            //Create a transaction and save
+            var transaction = new Transaction({
+                nfc: req.params.nfc,
+                bits: (reader.value - 0),
+                reader: reader.num,
+                location: reader.location
+            });
+
+            transaction.save(function(err, transaction) {
+                if (err) {
+                    res.status(500).send(err);
+                    return;
+                }
+                res.json(transaction);
+            });
         });
+    });
+});
+
+router.post('/readers', function(req, res) {
+    console.log('POST /readers');
+    var reader = new Reader(req.body);
+
+    reader.save(function(err, user) {
+        if (err) {
+            res.status(500).send(err);
+            return;
+        }
+        res.json(user);
+    });
+    
+});
+
+router.put('/readers/:num', function(req, res) {
+    console.log('POST /readers/:num/location');
+    Reader.findOne({ 'num': req.params.num }, function(err, reader) {
+        if (err) {
+            res.status(500).send(err);
+            return;
+        }
+        if (!reader) {
+            res.status(404).send('not found');
+            return;
+        }
+        reader.location = req.body.location;
+        reader.value = req.body.value;
+        reader.cooldown = req.body.cooldown;
+        reader.save(function(err, reader) {
+            res.json(reader);
+        });
+    });
+});
+
+router.delete('/readers/:num', function(req, res) {
+    console.log('DELETE /readres/:num');
+    Reader.remove({ 'num': req.params.num }, function(err) {
+        if (err) {
+            res.status(500).send(err);
+            return;
+        }
+        res.sendStatus(200);
     });
 });
 
