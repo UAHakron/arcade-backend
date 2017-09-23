@@ -131,6 +131,58 @@ router.put('/users/:nfc/bits', function(req, res) {
     });
 });
 
+router.put('/bits', function(req, res) {
+    console.log('POST bits');
+
+    Reader.findOne( {'num': req.query.num }, function(err, reader) {
+        Tag.findOne( {'nfc': req.query.nfc }, function(err, tag) {
+            Person.findOne( {'_id'; tag.person}, function(err, person) {
+                person.bits += (reader.value - 0 ) || 0;
+                person.save(function(err, person) {
+                    res.json(person);
+                });
+            });
+        });
+    });
+    
+    //Get user, update their total
+    User.findOne({ 'nfc': req.params.nfc }, function(err, user) {
+        if (err) {
+            res.status(500).send(err);
+            return;
+        }
+        if(!user)
+        {
+            res.status(404).send('not found');
+            return;
+        }
+
+    //Get reader based on num
+    
+        Reader.findOne( {'num': req.query.num}, function(err, reader) {
+            //Update user and save
+            user.bits += (reader.value - 0 ) || 0;
+            user.save()
+
+            //Create a transaction and save
+            var transaction = new Transaction({
+                nfc: req.params.nfc,
+                bits: (reader.value - 0),
+                reader: reader.num,
+                location: reader.location
+            });
+
+            transaction.save(function(err, transaction) {
+                if (err) {
+                    res.status(500).send(err);
+                    return;
+                }
+                res.json(transaction);
+            });
+        });
+    });
+});
+
 router.post('/readers', function(req, res) {
     console.log('POST /readers');
     var reader = new Reader(req.body);
@@ -175,6 +227,101 @@ router.delete('/readers/:num', function(req, res) {
         res.sendStatus(200);
     });
 });
+
+router.get('/people', function(req, res) {
+    console.log('GET /people');
+    Person.find().then(function(people, err){
+    res.json(people);
+    });
+});
+
+router.get('/people/bits', function(req, res) {
+    console.log('GET /people/bits');
+
+    Person.find({}, 'name bits').sort([['bits','descending']]).then(function(people, err){
+        if (err) { 
+            res.sendStatus(500);
+            return console.error(err);
+        }
+        res.json(people);
+    });
+});
+
+router.get('/people/:email', function(req, res) {
+    console.log('GET /people/:email');
+
+    Person.findOne({ 'email': req.params.email }, function(err, person) {
+        if (err) {
+            res.status(500).send(err);
+            return;
+        }
+        if (!person) {
+            res.status(404).send('not found');
+            return;
+        }
+        res.json(person);
+    })
+})
+
+router.post('/people', function(req, res) {
+
+    console.log('POST /people');
+    var person = new Person(req.body);
+
+    person.save(function(err, person) {
+        if (err) {
+            res.status(500).send(err);
+            return;
+        }
+        res.json(person);
+    });
+
+});
+
+router.post('/tags', function(req, res) {
+
+    console.log('POST /tags');
+    var tag = new Tag(req.body);
+
+    tag.save(function(err, tag) {
+        if (err) {
+            res.status(500).send(err);
+            return;
+        }
+        res.json(tag);
+    });
+
+});
+
+router.get('/tags', function(req, res) {
+    console.log('GET /tags');
+    Tag.find().then(function(tags, err){
+    res.json(tags);
+    });
+});
+
+router.post('/tags/:nfc/person', function(req, res) {
+    console.log('POST /tags/:nfc/person');
+    Tag.findOne({ 'nfc': req.params.nfc }, function(err, tag) {
+        if (err) {
+            res.status(500).send(err);
+            return;
+        }
+        if (!tag) {
+            res.status(404).send('not found');
+            return;
+        }
+        tag.person = req.body.person;
+        tag.save(function(err, tag) {
+            if (err) {
+                res.status(500).send(err);
+                return;
+            }
+            res.json(tag);
+        });
+    });
+});
+
 
 
 module.exports = router;
