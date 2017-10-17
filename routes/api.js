@@ -228,6 +228,13 @@ router.delete('/readers/:num', function(req, res) {
     });
 });
 
+router.get('/readers', function(req, res) {
+	console.log('GET /readers');
+	Reader.find().then(function(readers, err) {
+	res.json(readers);
+	});
+});
+
 /*
 router.get('/people', function(req, res) {
     console.log('GET /people');
