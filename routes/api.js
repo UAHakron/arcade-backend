@@ -370,7 +370,7 @@ router.post('/tags/:nfc/person', function(req, res) {
         });
     });
 });
-*//
+*/
 
 
 module.exports = router;
