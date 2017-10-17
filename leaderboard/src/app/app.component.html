@@ -1,65 +1,27 @@
 <div class="main" style="padding-bottom: 5px;">
-  <div style="text-align:center">
-    <h2 class="animated slideInLeft">
-      Welcome to the
-    </h2>
-    <img style="max-width: 500px" class="img-responsive animated fadeIn" src="https://hakron.io/img/logo.svg">
-    <h2 class="animated slideInLeft">
-      Leaderboard!
-    </h2>
-  </div>
-  <br/>
+    <div style="text-align:center">
+        <h2 class="animated slideInLeft">
+            HAkron Arcade Arduino Status Page
+        </h2>
+    </div>
+    <br/>
 
-  <form class="form-inline justify-content-center"> 
-    <input [(ngModel)]="lookupName"  [ngModelOptions]="{standalone: true}" class="" placeholder="Full Name" style="margin-right: 10px;">
-    <button type="button" class="lButton btn btn-primary "(click)="nameLookup(content)">Search Rank</button>
-  </form>
-
-  <ng-template #content let-c="close" let-d="dismiss">
-      <div class="modal-header">
-        <h4 class="modal-title">Search Results</h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-          <span aria-hidden="true" style="background-color: white">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body animated fadeIn">
-          <div class="table table-responsive">
-              <table class="table-bordered table-striped" style="width: 100%">
-                  <tr>
-                    <th class="">Rank</th>
-                    <th class="">Name</th>
-                    <th class="">Bits</th>
-                  </tr>
-                  <tr *ngFor="let person of found">
-                    <td class="">{{person.rank}}</td>
-                    <td class="">{{person.name}}</td>
-                    <td class="">{{person.bits}}</td>
-                  </tr> 
-              </table>
+    <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+        </div>
+        <div class="modal-body animated fadeIn">
+            <div class="table table-responsive">
+                <table class="table-bordered table-striped" style="width: 100%">
+                    <tr>
+                        <th class="">Reader #</th>
+                        <th class="">Last Scanned ID</th>
+                    </tr>
+                    <tr *ngFor="let person of found">
+                        <td class="">{{reader.num}}</td>
+                        <td class="">{{reader.tag}}</td>
+                    </tr>
+                </table>
             </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="lButton btn btn-primary" (click)="c('Close click')">Close</button>
-      </div>
+        </div>
     </ng-template>
 </div>
-
-  <div class="table table-responsive">
-    <table class="table-bordered table-striped" style="width: 100%">
-        <tr>
-          <th class="">Rank</th>
-          <th class="">Name</th>
-          <th class="">Bits</th>
-        </tr>
-        <tr *ngFor="let person of people" class="animated fadeIn">
-          <td class="">{{person.rank}}</td>
-          <td class="">{{person.name}}</td>
-          <td class="">{{person.bits}}</td>
-        </tr> 
-    </table>
-  </div>
-
-
-
-
-  
