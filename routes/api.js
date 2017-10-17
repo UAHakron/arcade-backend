@@ -246,7 +246,7 @@ router.get('/people/bits', function(req, res) {
 
 router.put('/people/:email/bits', function(req, res) {
 	console.log('PUT people email bits');
-	Person.find( { "email": req.params.email }, function(err, person) {
+	Person.findOne( { "email": req.params.email }, function(err, person) {
 	if (err) {
 		res.status(500).send(err);
 		return;
