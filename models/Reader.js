@@ -12,7 +12,7 @@ var ReaderSchema = new Schema({
     tag: {
 	type: String,
 	required: [true, "tag is required"]
-    }
+    },
 
     laston: {
 	type: Date,
