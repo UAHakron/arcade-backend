@@ -6,6 +6,7 @@ const Reader = require('../models/Reader')
 const Tag = require('../models/Tag')
 const Person = require('../models/Person')
 
+/**
 router.get('/users', function(req, res) {
     console.log('GET /users');
     User.find().then(function(users, err){
@@ -133,6 +134,9 @@ router.put('/users/:nfc/bits', function(req, res) {
     });
 });
 
+*/
+
+/**
 router.put('/bits', function(req, res) {
     console.log('POST bits');
     console.log(req.query.num);
@@ -179,6 +183,7 @@ router.put('/bits', function(req, res) {
         });
     });
 });
+*/
 
 router.post('/readers', function(req, res) {
     console.log('POST /readers');
@@ -195,7 +200,6 @@ router.post('/readers', function(req, res) {
 });
 
 router.put('/readers/:num', function(req, res) {
-    console.log('POST /readers/:num/location');
     Reader.findOne({ 'num': req.params.num }, function(err, reader) {
         if (err) {
             res.status(500).send(err);
@@ -205,9 +209,8 @@ router.put('/readers/:num', function(req, res) {
             res.status(404).send('not found');
             return;
         }
-        reader.location = req.body.location;
-        reader.value = req.body.value;
-        reader.cooldown = req.body.cooldown;
+        reader.tag = req.body.tag;
+	reader.laston = Date.now();
         reader.save(function(err, reader) {
             res.json(reader);
         });
@@ -225,6 +228,7 @@ router.delete('/readers/:num', function(req, res) {
     });
 });
 
+/*
 router.get('/people', function(req, res) {
     console.log('GET /people');
     Person.find().then(function(people, err){
@@ -366,7 +370,7 @@ router.post('/tags/:nfc/person', function(req, res) {
         });
     });
 });
-
+*//
 
 
 module.exports = router;

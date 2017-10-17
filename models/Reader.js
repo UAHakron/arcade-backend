@@ -9,20 +9,14 @@ var ReaderSchema = new Schema({
 		required: [true, "Num is required"],
 		unique: true
 	},
+    tag: {
+	type: String,
+	required: [true, "tag is required"]
+    }
 
-    location: {
-        type: String,
-        required: [true, "A location is required"]
-    },
-
-    value: {
-        type: Number,
-        required: [true, "value is required"]
-    },
-    
-    cooldown: {
-        type: Number,
-        required: [true, "cooldown is required"]
+    laston: {
+	type: Date,
+	default: Date.now
     }
 
 },
