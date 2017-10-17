@@ -1,27 +1,32 @@
 <div class="main" style="padding-bottom: 5px;">
-    <div style="text-align:center">
-        <h2 class="animated slideInLeft">
-            HAkron Arcade Arduino Status Page
-        </h2>
-    </div>
-    <br/>
+  <div style="text-align:center">
+    <h2 class="animated slideInLeft">
+      HAkron Arcade Arduino Status Page
+    </h2>
+  </div>
+  <br/>
 
-    <ng-template #content let-c="close" let-d="dismiss">
-        <div class="modal-header">
-        </div>
-        <div class="modal-body animated fadeIn">
-            <div class="table table-responsive">
-                <table class="table-bordered table-striped" style="width: 100%">
-                    <tr>
-                        <th class="">Reader #</th>
-                        <th class="">Last Scanned ID</th>
-                    </tr>
-                    <tr *ngFor="let person of found">
-                        <td class="">{{reader.num}}</td>
-                        <td class="">{{reader.tag}}</td>
-                    </tr>
-                </table>
+
+  <!-- <ng-template #content> -->
+      <div class="modal-body animated fadeIn">
+          <div class="table table-responsive">
+              <table class="table-bordered table-striped" style="width: 100%">
+                  <tr>
+                    <th class="">Reader #</th>
+                    <th class="">Last Scanned ID</th>
+                  </tr>
+                  <tr>
+                    <td class="">{{readers.num}}</td>
+                    <td class="">{{readers.tag}}</td>
+                  </tr> 
+              </table>
             </div>
-        </div>
-    </ng-template>
+      </div>
+<!--    </ng-template> -->
 </div>
+
+
+
+
+
+  

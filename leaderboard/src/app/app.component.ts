@@ -42,7 +42,7 @@ export class AppComponent {
   }
 
   readers = [];
-  found = [];
+  //found = [];
   title = 'the leaderboard';
   //everyone = {};
   //lookupName = '';
@@ -54,9 +54,9 @@ export class AppComponent {
         console.log(data);
       var result = JSON.stringify(data);
       this.readers = JSON.parse(result);
-
+        console.log(this.readers);
       for (let index in this.readers) {
-      this.readers[index].rank = (parseInt(index) + 1);
+      this.readers[index].tag = (parseInt(index) + 1);
       }
 
     });
