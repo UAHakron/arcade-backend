@@ -54,9 +54,10 @@ export class AppComponent {
         console.log(data);
       var result = JSON.stringify(data);
       this.readers = JSON.parse(result);
-        console.log(this.readers);
       for (let index in this.readers) {
-      this.readers[index].tag = (parseInt(index) + 1);
+      this.readers[index].num = (parseInt(index) + 1);
+          console.log(this.readers[index].num)
+          console.log(this.readers[index].tag)
       }
 
     });
