@@ -15,9 +15,9 @@
                         <th class="">Reader #</th>
                         <th class="">Last Scanned ID</th>
                     </tr>
-                    <tr>
-                        <td class="">{{readers.num}}</td>
-                        <td class="">{{readers.tag}}</td>
+                    <tr *ngFor="let reader of readers">
+                        <td class="">{{reader.num}}</td>
+                        <td class="">{{reader.tag}}</td>
                     </tr>
                 </table>
             </div>
