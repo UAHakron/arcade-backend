@@ -51,13 +51,10 @@ export class AppComponent {
     
       //console.log('got stuff')
       //TODO: Live update leaderboard and get rid of button!
-        console.log(data);
       var result = JSON.stringify(data);
       this.readers = JSON.parse(result);
       for (let index in this.readers) {
       this.readers[index].num = (parseInt(index) + 1);
-          console.log(this.readers[index].num)
-          console.log(this.readers[index].tag)
       }
 
     });
