@@ -8,16 +8,16 @@
 
 
   <!-- <ng-template #content> -->
-      <div class="modal-body animated fadeIn">
+      <div class="animated fadeIn">
           <div class="table table-responsive">
               <table class="table-bordered table-striped" style="width: 100%">
                   <tr>
                     <th class="">Reader #</th>
                     <th class="">Last Scanned ID</th>
                   </tr>
-                  <tr>
-                    <td class="">{{readers.num}}</td>
-                    <td class="">{{readers.tag}}</td>
+                  <tr *ngFor="let person of found">
+                    <td class="">{{person.rank}}</td>
+                    <td class="">{{person.name}}</td>
                   </tr> 
               </table>
             </div>
