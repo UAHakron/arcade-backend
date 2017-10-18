@@ -1,32 +1,26 @@
 <div class="main" style="padding-bottom: 5px;">
-  <div style="text-align:center">
-    <h2 class="animated slideInLeft">
-      HAkron Arcade Arduino Status Page
-    </h2>
-  </div>
-  <br/>
+    <div style="text-align:center">
+        <h2 class="animated slideInLeft">
+            HAkron Arcade Arduino Status Page
+        </h2>
+    </div>
+    <br/>
 
 
-  <!-- <ng-template #content> -->
-      <div class="animated fadeIn">
-          <div class="table table-responsive">
-              <table class="table-bordered table-striped" style="width: 100%">
-                  <tr>
-                    <th class="">Reader #</th>
-                    <th class="">Last Scanned ID</th>
-                  </tr>
-                  <tr>
-                    <td class="">{{person.rank}}</td>
-                    <td class="">{{person.name}}</td>
-                  </tr> 
-              </table>
+    <ng-template #content>
+        <div class="animated fadeIn">
+            <div class="table table-responsive">
+                <table class="table-bordered table-striped" style="width: 100%">
+                    <tr>
+                        <th class="">Reader #</th>
+                        <th class="">Last Scanned ID</th>
+                    </tr>
+                    <tr>
+                        <td class="">{{readers.rank}}</td>
+                        <td class="">{{readers.name}}</td>
+                    </tr>
+                </table>
             </div>
-      </div>
-<!--    </ng-template> -->
+        </div>
+    </ng-template>
 </div>
-
-
-
-
-
-  
